@@ -9,9 +9,20 @@
 @section('content')
 
     <div class="container">
-        <div class="page-header">
-            <h2>Пользователи</h2>
-            <a href="{{ route('admin.users.create') }}" class="btn btn-success mb-4">Создать пользователя</a>
+        <div class="row">
+            <div class="col">
+                <div class="page-header">
+                    <h2>Пользователи</h2>
+                    <a href="{{ route('admin.users.create') }}" class="btn btn-success mb-4">Создать пользователя</a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check">
+                    <a href="{{ route('admin.users.blockedUsers') }}" class=" btn btn-primary">
+                        Заблокированные пользователи
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 

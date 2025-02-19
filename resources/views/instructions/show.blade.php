@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid d-flex justify-content-center">
         @include('parts.messages')
         <div class="card" style="width: 56rem;">
             <div class="card-body">

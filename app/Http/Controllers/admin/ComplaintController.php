@@ -19,4 +19,11 @@ class ComplaintController extends Controller
     {
         return view('admin.complaint.show', ['comInstrukt' => $comInstrukt]);
     }
+
+    public function all()
+    {
+        $comInstrukt = ComplaintsInstructions::all();
+        $comInstrukt = ComplaintsInstructions::paginate(10);
+        return view('admin.complaint.index', ['comInstrukts' => $comInstrukt]);
+    }
 }

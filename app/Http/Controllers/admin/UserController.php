@@ -21,6 +21,17 @@ class UserController extends Controller
         ]);
     }
 
+    public function blockedUsers()
+    {
+        $userAuth = Auth::user();
+        $users = User::where([['is_blocked', 'LIKE', '1'], ['id', '!=', $userAuth->id]])
+            ->select(['id', 'name', 'email', 'is_admin', 'is_blocked'])->paginate(10);
+
+        return view('admin.users.index', [
+            'users' => $users
+        ]);
+    }
+
 
     public function create()
     {

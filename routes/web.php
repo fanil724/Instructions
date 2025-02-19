@@ -34,6 +34,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
     });
     Route::name('users.')->prefix('users')->group(function () {
         Route::get('/', [AdminUserController::class, 'index'])->name('index');
+        Route::get('/blockedUsers', [AdminUserController::class, 'blockedUsers'])->name('blockedUsers');
         Route::post('/store', [AdminUserController::class, 'store'])->name('store');
         Route::get('/{user}/edit', [AdminUserController::class, 'edit'])->name('edit');
         Route::put('/update/{user}', [AdminUserController::class, 'update'])->name('update');
@@ -44,6 +45,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
     });
     Route::name('complaint.')->prefix('complaint')->group(function () {
         Route::get('/', [AdminComplaintController::class, 'index'])->name('index');
+        Route::get('/all', [AdminComplaintController::class, 'all'])->name('all');
         Route::get('/{comInstrukt}', [AdminComplaintController::class, 'show'])->name('show');
     });
 });

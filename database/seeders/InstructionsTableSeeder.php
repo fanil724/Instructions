@@ -21,7 +21,8 @@ class InstructionsTableSeeder extends Seeder
                 'title' => fake()->realText(10),
                 'description' => fake()->realText(50),
                 'file' => 'public/Instructions/' . $fileNames[mt_rand(0, count($fileNames) - 1)],
-                'is_moderation' => mt_rand(0, 1)
+                'is_moderation' => mt_rand(0, 1),
+                'users_id' => \App\Models\User::inRandomOrder()->first()->id,
             ]);
         }
     }
