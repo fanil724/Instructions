@@ -4,36 +4,37 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\ComplaintsInstructions;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Complaint;
+
 
 class ComplaintController extends Controller
 {
     public function index()
     {
-        $comInstrukt = ComplaintsInstructions::where('status', 'like', 0)->paginate(10);
-        return view('admin.complaint.index', ['comInstrukts' => $comInstrukt]);
+        $compalint = Complaint::where('status', 'like', 0)->paginate(10);
+        return view('admin.complaint.index', ['compalints' => $compalint]);
     }
 
-    public function show(ComplaintsInstructions $comInstrukt)
+    public function show(string $id)
     {
-        return view('admin.complaint.show', ['comInstrukt' => $comInstrukt]);
+        $compalint = Complaint::find($id);
+        return view('admin.complaint.show', ['compalint' => $compalint]);
     }
 
     public function all()
     {
-        $comInstrukt = ComplaintsInstructions::all();
-        $comInstrukt = ComplaintsInstructions::paginate(10);
-        return view('admin.complaint.index', ['comInstrukts' => $comInstrukt]);
+        $compalint = Complaint::all();
+        $compalint = Complaint::paginate(10);
+        return view('admin.complaint.index', ['compalints' => $compalint]);
     }
 
 
     public function status(string $id)
     {
-        $сomplaints = ComplaintsInstructions::find($id);
-        if ($сomplaints) {
-            $сomplaints->status = (($сomplaints->status == 1) ? 0 : 1);
-            if ($сomplaints->save()) {
+        $compalints = Complaint::find($id);
+        if ($compalints) {
+            $compalints->status = (($compalints->status == 1) ? 0 : 1);
+            if ($compalints->save()) {
                 return response()->json([
                     'success' => 'true',
                     'message' => 'Статус жалобы успешно иземенен',

@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Instructions extends Model
+class Instruction extends Model
 {
     use HasFactory;
-    protected $table = 'instructions';
+
 
     protected $fillable = ['title', 'description', 'file', 'is_moderation', 'users_id'];
 
-    public function complaint()
+    public function complaints()
     {
-        return $this->hasMany(ComplaintsInstructions::class);
+        return $this->hasMany(Complaint::class);
     }
     public function user()
     {

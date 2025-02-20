@@ -7,14 +7,16 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid justify-content-center">
-        @include('parts.messages')
-        <div class="card" style="width: 56rem;">
-            <div class="card-body">
-                <h5 class="card-title">{{ $comInstrukt->title }}</h5>
-                <p class="card-text">{{$comInstrukt->dexription}}</p>
-                <p class="card-text">Отправитель жалобы: {{$comInstrukt->user->name}}</p>
-                <p class="card-text">Инструкция {{$comInstrukt->instruction->title}}</p>
+    <div class="justify-content-center">
+        <div class="container ">
+            @include('parts.messages')
+            <div class="card" style="width: 56rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Наименование жалобы: {{ $compalint->title }}</h5>
+                    <p class="card-text">Текст жалобы: {{$compalint->dexription}}</p>
+                    <p class="card-text">Отправитель жалобы: {{$compalint->users_id}}</p>
+                    <p class="card-text">Инструкция {{$compalint->instructions_id}}</p>
+                </div>
             </div>
         </div>
     </div>

@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ComplaintsInstructions extends Model
+class Complaint extends Model
 {
     use HasFactory;
-
-    protected $table = 'complaints__instructions';
 
     protected $fillable = ['title', 'dexription', 'status', 'users_id', 'instructions_id'];
 
@@ -19,6 +17,6 @@ class ComplaintsInstructions extends Model
     }
     public function instruction()
     {
-        return $this->belongsTo(Instructions::class);
+        return $this->belongsTo(Instruction::class);
     }
 }

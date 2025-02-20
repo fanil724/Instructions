@@ -5,24 +5,26 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Instructions;
+use App\Models\Instruction;
 use PhpOffice\PhpWord\IOFactory;
 
 class IstructionsController extends Controller
 {
     public function index()
     {
-        $instrukt = Instructions::where('is_moderation', 'like', 0)->paginate(10);
+        $instrukt = Instruction::where('is_moderation', 'like', 0)->paginate(10);
         return view('admin.instructions.index', ['instructions' => $instrukt]);
     }
 
-    public function show(Instructions $instruction)
+    public function show(Instruction $instruction)
     {
+        $filePath = Storage::path($instruction->file);
+        $contents = '';
+        if (str_ends_with($filePath, 'txt')) {
+            $contents =  file_get_contents($filePath);
+            return view('instructions.show', ['instruction' => $instruction, 'content' => $contents]);
+        }
 
-        $contents = null;
-
-        // $contents = Storage::get($instruction->file);
-        $filePath = storage_path($instruction->file);
         $phpWord = IOFactory::load($filePath);
         $sections = $phpWord->getSections();
         foreach ($sections as $section) {
@@ -39,14 +41,12 @@ class IstructionsController extends Controller
                 }
             }
         }
-
-
         return view('admin.instructions.show', ['instruction' => $instruction, 'content' => $contents]);
     }
 
     public function addInstruktion($id)
     {
-        $instrukt = Instructions::find($id);
+        $instrukt = Instruction::find($id);
         $instrukt->is_moderation = 1;
 
         if ($instrukt->update()) {

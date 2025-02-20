@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Instructions;
-use App\Models\ComplaintsInstructions;
+use App\Models\Instruction;
+use App\Models\Complaint;
 use App\Http\Request\CrateInstructionsRequest;
 use App\Http\Request\StoreComplaintRequest;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class InstruktController extends Controller
 {
     public function index()
     {
-        $instrukt = Instructions::where('is_moderation', 'like', 1)->paginate(10);
+        $instrukt = Instruction::where('is_moderation', 'like', 1)->paginate(10);
         return view('instructions.index', ['instructions' => $instrukt]);
     }
 
@@ -23,14 +23,14 @@ class InstruktController extends Controller
     {
         $search = $request->get('search');
         // dd($search);
-        $instrukt = Instructions::where('is_moderation', 'like', 1)
+        $instrukt = Instruction::where('is_moderation', 'like', 1)
             ->where('title', 'LIKE', '%' . $search . '%')
             ->orWhere('description', 'LIKE', '%' . $search . '%')
             ->paginate(10);
         return view('instructions.index', ['instructions' => $instrukt]);
     }
 
-    public function show(Instructions $instruction)
+    public function show(Instruction $instruction)
     {
         $filePath = Storage::path($instruction->file);
         $contents = '';
@@ -77,14 +77,14 @@ class InstruktController extends Controller
                 $dateValid['file'] = $fileName;
                 $dateValid['is_moderation'] = 1;
             }
-            $instruction = Instructions::create($dateValid);
+            $instruction = Instruction::create($dateValid);
         } catch (\Exception $e) {
             return redirect()->route('instructions.create')->with('error', 'Ошибка добавления инструкции! ' . $e->getMessage());
         }
         return redirect()->route('instructions.show', $instruction)->with('success', 'Инструкция успешно добавлена');
     }
 
-    public function download(Instructions $instruction)
+    public function download(Instruction $instruction)
     {
         if ($instruction) {
             return Storage::download($instruction->file);
@@ -94,7 +94,7 @@ class InstruktController extends Controller
     }
 
 
-    public function complaint(Instructions $instruction)
+    public function complaint(Instruction $instruction)
     {
         return view('instructions.complaint', ['instructions_id' => $instruction->id]);
     }
@@ -105,9 +105,9 @@ class InstruktController extends Controller
         $dateValid = $request->validated();
         $dateValid['users_id'] = Auth::user()->getAuthIdentifier();
         //dd($dateValid);
-        $comInstruction = ComplaintsInstructions::create($dateValid);
+        $comInstruction = Complaint::create($dateValid);
         if (!$comInstruction) {
-            $instruction = Instructions::find($dateValid->instructions_id);
+            $instruction = Instruction::find($dateValid->instructions_id);
             return redirect()->route('instructions.complaint', ['instruction' => $instruction])
                 ->with('error', 'Ошибка отпраления жалобы! ');
         }

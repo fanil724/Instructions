@@ -2,12 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Models\Instructions;
+use App\Models\Instruction;
 use App\Models\User;
+use App\Models\Complaint;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ComplaintsInstructionsTableSeeder extends Seeder
+class ComplaintsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,11 +16,11 @@ class ComplaintsInstructionsTableSeeder extends Seeder
     public function run(): void
     {
         for ($i = 0; $i < 40; $i++) {
-            \App\Models\ComplaintsInstructions::create([
+            Complaint::create([
                 'title' => fake()->realText(10),
                 'dexription' => fake()->realText(50),
-                'users_id' => User::query()->inRandomOrder()->first()->id,
-                'instructions_id' => Instructions::query()->inRandomOrder()->first()->id,
+                'users_id' => User::inRandomOrder()->first()->id,
+                'instructions_id' => Instruction::inRandomOrder()->first()->id,
                 'status' => mt_rand(0, 1)
             ]);
         }

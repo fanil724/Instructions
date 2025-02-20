@@ -27,25 +27,25 @@
     <div class="container ">
         <div class="row justify-content-center">
             @include('parts.messages')
-            @forelse ($comInstrukts as $comInstrukt)
+            @forelse ($compalints as $compalint)
                 <div class="card" class="col-sm" style="width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title">{{ $comInstrukt->title }}</h5>
-                        <p class="card-text"> {{$comInstrukt->description}} </p>
+                        <h5 class="card-title">{{ $compalint->title }}</h5>
+                        <p class="card-text"> {{$compalint->description}} </p>
                         <div class="form-check">
-                            <input class="form-check-input checkBlock" type="checkbox" id="flexCheckDefault" name="status"
-                                @checked($comInstrukt->status)>
+                            <input data-id="{{ $compalint->id }}" class="form-check-input checkStatus" type="checkbox"
+                                id="flexCheckDefault" name="status" @checked($compalint->status)>
                             <label class="form-check-label" for="flexCheckDefault">
                                 Обработанные
                             </label>
                         </div>
-                        <a href="{{ route('admin.complaint.show', $comInstrukt) }}" class="btn btn-primary">Прочитать </a>
+                        <a href="{{ route('admin.complaint.show', $compalint->id) }}" class="btn btn-primary">Прочитать </a>
                     </div>
                 </div>
             @empty
                 <p>Нет жалоб</p>
             @endforelse
-            {{ $comInstrukts->links() }}
+            {{ $compalints->links() }}
         </div>
     </div>
 @endsection

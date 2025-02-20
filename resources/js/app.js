@@ -32,4 +32,21 @@ checkBlock.forEach((elem) => {
 });
 
 
+let checkStatus = document.querySelectorAll('.checkStatus');
+checkStatus.forEach((elem) => {
+    elem.addEventListener('change', () => {
+        let id = elem.getAttribute('data-id');
+        console.log(id);
+        axios.post(`/admin/complaint/${id}/status`)
+            .then(response => {
+                elem.blur();
+                alert(response.data.message);
+            }).catch(error => {
+                elem.blur();
+                alert(response.data.message);
+            });
+    })
+});
+
+
 

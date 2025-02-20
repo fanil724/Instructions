@@ -22,10 +22,19 @@ class DatabaseSeeder extends Seeder
             'is_blocked' => mt_rand(0, 1),
         ]);
 
+
+
         $this->call([
             InstructionsTableSeeder::class,
-            ComplaintsInstructionsTableSeeder::class,
+            ComplaintsTableSeeder::class,
 
         ]);
+        /* \App\Models\Complaints::create([
+            'title' => fake()->realText(10),
+            'dexription' => fake()->realText(50),
+            'status' => 1,
+            'users_id' => 5,
+            'instructions_id' => 5
+        ]);*/
     }
 }

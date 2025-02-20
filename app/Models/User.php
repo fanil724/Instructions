@@ -45,12 +45,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function complaint()
+    public function complaints()
     {
-        return $this->hasMany(ComplaintsInstructions::class);
+        return $this->belongsToMany(Complaint::class);
     }
     public function instructions()
     {
-        return $this->hasMany(Instructions::class);
+        return $this->hasMany(Instruction::class);
     }
 }

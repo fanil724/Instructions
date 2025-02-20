@@ -17,7 +17,7 @@ class InstructionsTableSeeder extends Seeder
         $fileNames = array_map('basename', $files);
 
         for ($i = 0; $i < 40; $i++) {
-            \App\Models\Instructions::create([
+            \App\Models\Instruction::create([
                 'title' => fake()->realText(10),
                 'description' => fake()->realText(50),
                 'file' => 'public/Instructions/' . $fileNames[mt_rand(0, count($fileNames) - 1)],

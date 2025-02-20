@@ -4,13 +4,10 @@ use App\Http\Controllers\InstruktController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SocialiteController;
-use App\Http\Controllers\admin\IndexController as AdminIndexController;
-use App\Http\Controllers\admin\IstructionsController as AdminIstructionsController;
-use App\Http\Controllers\admin\UserController as AdminUserController;
-use App\Http\Controllers\admin\ComplaintController as AdminComplaintController;
-
-
-
+use App\Http\Controllers\Admin\IndexController as AdminIndexController;
+use App\Http\Controllers\Admin\IstructionsController as AdminIstructionsController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
 
 
 
@@ -46,7 +43,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::name('complaint.')->prefix('complaint')->group(function () {
         Route::get('/', [AdminComplaintController::class, 'index'])->name('index');
         Route::get('/all', [AdminComplaintController::class, 'all'])->name('all');
-        Route::get('/{comInstrukt}', [AdminComplaintController::class, 'show'])->name('show');
+        Route::post('/{id}/status', [AdminComplaintController::class, 'status'])->name('status');
+        Route::get('/{id}/show', [AdminComplaintController::class, 'show'])->name('show');
     });
 });
 
