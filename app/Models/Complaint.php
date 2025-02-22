@@ -9,14 +9,14 @@ class Complaint extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'dexription', 'status', 'users_id', 'instructions_id'];
+    protected $fillable = ['title', 'dexription', 'status', 'user_id', 'instruction_id'];
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function instruction()
     {
-        return $this->belongsTo(Instruction::class);
+        return $this->belongsTo(Instruction::class, 'instruction_id', 'id');
     }
 }

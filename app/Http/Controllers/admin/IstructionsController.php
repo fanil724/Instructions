@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\ReadFileAction;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Instruction;
-use PhpOffice\PhpWord\IOFactory;
+
 
 class IstructionsController extends Controller
 {
@@ -16,31 +16,10 @@ class IstructionsController extends Controller
         return view('admin.instructions.index', ['instructions' => $instrukt]);
     }
 
-    public function show(Instruction $instruction)
+    public function show(Instruction $instruction, ReadFileAction $action)
     {
-        $filePath = Storage::path($instruction->file);
-        $contents = '';
-        if (str_ends_with($filePath, 'txt')) {
-            $contents =  file_get_contents($filePath);
-            return view('instructions.show', ['instruction' => $instruction, 'content' => $contents]);
-        }
 
-        $phpWord = IOFactory::load($filePath);
-        $sections = $phpWord->getSections();
-        foreach ($sections as $section) {
-            $elements = $section->getElements();
-            foreach ($elements as $element) {
-                if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
-                    foreach ($element->getElements() as $text) {
-                        if ($text instanceof \PhpOffice\PhpWord\Element\Text) {
-                            $contents = $contents . $text->getText() . PHP_EOL;
-                        }
-                    }
-                } elseif ($element instanceof \PhpOffice\PhpWord\Element\Text) {
-                    $contents = $contents . $element->getText() . PHP_EOL;
-                }
-            }
-        }
+        $contents = $action->read($instruction->file);
         return view('admin.instructions.show', ['instruction' => $instruction, 'content' => $contents]);
     }
 
@@ -54,5 +33,13 @@ class IstructionsController extends Controller
         }
 
         return redirect()->route('admin.instructions.index')->with('error', 'Интсрукция не добавлена');
+    }
+
+    public function destroy(Instruction $instruction)
+    {
+        if ($instruction->delete()) {
+            return redirect()->route('admin.instructions.index')->with('success', 'Интсрукция успешно удалена!');
+        }
+        return back()->with('error', 'Ошибка удаления интсрукции');
     }
 }

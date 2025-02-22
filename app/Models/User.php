@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     public function complaints()
     {
-        return $this->belongsToMany(Complaint::class);
+        return $this->hasMany(Complaint::class);
     }
     public function instructions()
     {

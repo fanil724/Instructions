@@ -22,7 +22,7 @@ class InstructionsTableSeeder extends Seeder
                 'description' => fake()->realText(50),
                 'file' => 'public/Instructions/' . $fileNames[mt_rand(0, count($fileNames) - 1)],
                 'is_moderation' => mt_rand(0, 1),
-                'users_id' => \App\Models\User::inRandomOrder()->first()->id,
+                'user_id' => \App\Models\User::inRandomOrder()->first()->id,
             ]);
         }
     }

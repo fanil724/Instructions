@@ -19,8 +19,8 @@ class ComplaintsTableSeeder extends Seeder
             Complaint::create([
                 'title' => fake()->realText(10),
                 'dexription' => fake()->realText(50),
-                'users_id' => User::inRandomOrder()->first()->id,
-                'instructions_id' => Instruction::inRandomOrder()->first()->id,
+                'user_id' => User::inRandomOrder()->first()->id,
+                'instruction_id' => Instruction::inRandomOrder()->first()->id,
                 'status' => mt_rand(0, 1)
             ]);
         }

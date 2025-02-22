@@ -36,9 +36,10 @@
                         <p class="card-text"> {{$instruction->description}} </p>
                         <a href="{{ route('instructions.show', $instruction) }}" class="btn btn-primary">Прочитать </a>
                         <a href="{{ route('download', $instruction) }}" class="btn  btn-success ">Скачать </a>
-                        <a href="{{ route('instructions.complaint', $instruction) }}" class="btn btn-warning mt-2">Сообщить о
-                            нарушении </a>
-
+                        @if (Auth::user())
+                            <a href="{{ route('instructions.complaint', $instruction) }}" class="btn btn-warning mt-2">Сообщить о
+                                нарушении </a>
+                        @endif
                     </div>
                 </div>
             @empty

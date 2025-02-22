@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title')->nullable(false);
             $table->string('description')->nullable(false);
             $table->string('file')->nullable(false);
-            $table->foreignId('users_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->boolean('is_moderation')->default(false);
             $table->timestamps('creat_at');
         });

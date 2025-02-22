@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\ReadFileAction;
 use App\Models\Instruction;
 use App\Models\Complaint;
 use App\Http\Request\CrateInstructionsRequest;
@@ -30,31 +31,9 @@ class InstruktController extends Controller
         return view('instructions.index', ['instructions' => $instrukt]);
     }
 
-    public function show(Instruction $instruction)
+    public function show(Instruction $instruction, ReadFileAction $action)
     {
-        $filePath = Storage::path($instruction->file);
-        $contents = '';
-        if (str_ends_with($filePath, 'txt')) {
-            $contents =  file_get_contents($filePath);
-            return view('instructions.show', ['instruction' => $instruction, 'content' => $contents]);
-        }
-
-        $phpWord = IOFactory::load($filePath);
-        $sections = $phpWord->getSections();
-        foreach ($sections as $section) {
-            $elements = $section->getElements();
-            foreach ($elements as $element) {
-                if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
-                    foreach ($element->getElements() as $text) {
-                        if ($text instanceof \PhpOffice\PhpWord\Element\Text) {
-                            $contents = $contents . $text->getText() . PHP_EOL;
-                        }
-                    }
-                } elseif ($element instanceof \PhpOffice\PhpWord\Element\Text) {
-                    $contents = $contents . $element->getText() . PHP_EOL;
-                }
-            }
-        }
+        $contents = $action->read($instruction->file);
         return view('instructions.show', ['instruction' => $instruction, 'content' => $contents]);
     }
     public function create()

@@ -10,14 +10,14 @@ class Instruction extends Model
     use HasFactory;
 
 
-    protected $fillable = ['title', 'description', 'file', 'is_moderation', 'users_id'];
+    protected $fillable = ['title', 'description', 'file', 'is_moderation', 'user_id'];
 
     public function complaints()
     {
-        return $this->hasMany(Complaint::class);
+        return $this->hasMany(Complaint::class, 'id', 'instructions_id');
     }
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

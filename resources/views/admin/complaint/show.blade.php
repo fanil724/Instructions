@@ -14,8 +14,14 @@
                 <div class="card-body">
                     <h5 class="card-title">Наименование жалобы: {{ $compalint->title }}</h5>
                     <p class="card-text">Текст жалобы: {{$compalint->dexription}}</p>
-                    <p class="card-text">Отправитель жалобы: {{$compalint->users_id}}</p>
-                    <p class="card-text">Инструкция {{$compalint->instructions_id}}</p>
+                    <p class="card-text">Отправитель жалобы:
+                        <a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                            href="{{ route('admin.users.show', $compalint->user) }}">{{$compalint->user->name}}</a>
+                    </p>
+                    <p class="card-text">Инструкция:
+                        <a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                            href="{{ route('admin.instructions.show', $compalint->instruction) }}">{{$compalint->instruction->title}}</a>
+                    </p>
                 </div>
             </div>
         </div>

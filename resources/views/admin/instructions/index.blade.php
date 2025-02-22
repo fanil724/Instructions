@@ -27,6 +27,11 @@
                         <a href="{{ route('admin.instructions.addInstruktion', $instruction->id) }}"
                             class="btn btn-warning mt-2">Добавить
                             инструкцию</a>
+                        <form action="{{ route('admin.instructions.destroy', $instruction) }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="btn btn-danger  mt-2">Удалить</button>
+                        </form>
 
                     </div>
                 </div>
