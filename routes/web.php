@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\IstructionsController as AdminIstructionsController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
-
+use App\Http\Controllers\UserController;
 
 
 Auth::routes();
@@ -63,4 +63,10 @@ Route::name('instructions.')->prefix('instructions')->group(function () {
     Route::get('/complaint/{instruction}', [InstruktController::class, 'complaint'])->name('complaint');
     Route::post('/complaint/store', [InstruktController::class, 'comStore'])->name('complaint.store');
 });
+
+Route::name('user.')->prefix('user')->group(function () {
+    Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit');
+    Route::put('/update/{user}', [UserController::class, 'update'])->name('update');
+});
+
 Route::get('download/{instruction}', [InstruktController::class, 'download'])->name('download');
