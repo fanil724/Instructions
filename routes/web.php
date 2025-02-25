@@ -9,9 +9,11 @@ use App\Http\Controllers\Admin\IstructionsController as AdminIstructionsControll
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CaptchaController;
 
 
 Auth::routes();
+
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/{soc}/redirect', [SocialiteController::class, 'redirect'])->name('auth.redirect');
@@ -70,3 +72,4 @@ Route::name('user.')->prefix('user')->group(function () {
 });
 
 Route::get('download/{instruction}', [InstruktController::class, 'download'])->name('download');
+Route::get('/captchaIMG', [CaptchaController::class, 'refreshCaptcha'])->name('refreshCaptcha');

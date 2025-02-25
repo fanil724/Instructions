@@ -48,5 +48,12 @@ checkStatus.forEach((elem) => {
     })
 });
 
+let butCaptcha = document.getElementById('butCapcha');
 
-
+butCaptcha.addEventListener('click',
+    () => {
+        axios.get(`/captchaIMG`)
+            .then(response => {
+                document.getElementById('captchaImg').src = response.data.captcha;
+            });
+    });

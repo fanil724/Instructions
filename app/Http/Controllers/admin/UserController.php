@@ -85,9 +85,8 @@ class UserController extends Controller
         $id_admin = $request->get('is_admin') == 'on' ? 1 : 0;
         $validated = $request->validated();
         $validated['is_admin'] = $id_admin;
-        //dd($validated);
         try {
-            $post = User::create($validated);
+            $user = User::create($validated);
         } catch (\Exception $e) {
             return redirect()->route('admin.users.create')->with('error', 'Ошибка добавления пользователя! ' . $e->getMessage());
         }

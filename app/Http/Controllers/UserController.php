@@ -11,7 +11,6 @@ class UserController extends Controller
 {
     public function edit(User $user)
     {
-        // $user = User::find(Auth::user()->id);
         return view('user.edit', [
             'user' => $user
         ]);

@@ -18,14 +18,11 @@ class ComplaintController extends Controller
     public function show(string $id)
     {
         $compalint = Complaint::find($id);
-
-
         return view('admin.complaint.show', ['compalint' => $compalint]);
     }
 
     public function all()
     {
-        $compalint = Complaint::all();
         $compalint = Complaint::paginate(10);
         return view('admin.complaint.index', ['compalints' => $compalint]);
     }
