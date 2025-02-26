@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('Login') }}</div>
-
+                    @include('parts.messages')
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
@@ -16,8 +16,8 @@
 
                                 <div class="col-md-6">
                                     <input id="name" type="name" class="form-control @error('name') is-invalid @enderror
-                                                @error('is_blocked') is-invalid @enderror" name="name" value="fanil724"
-                                        required autocomplete="name" autofocus>
+                                                        @error('is_blocked') is-invalid @enderror" name="name"
+                                        value="fanil724" required autocomplete="name" autofocus>
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">

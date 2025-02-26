@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 use Illuminate\Http\Request;
 
@@ -28,6 +29,10 @@ class SocialiteController extends Controller
                 'name' => $userSocial->getNickname(),
                 'password' => 'password'
             ]);
+        }
+
+        if ($user->is_blocked) {
+            return redirect()->route('login')->with('error', 'Ваш аккаунт заблокирован. Обратитесь к администратору.');
         }
         Auth::login($user);
         return redirect('/');
