@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Actions\ReadFileAction;
 use App\Http\Controllers\Controller;
+use App\Http\Request\UpdateInstructionRequest;
 use Illuminate\Http\Request;
 use App\Models\Instruction;
-
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class IstructionsController extends Controller
 {
@@ -42,4 +44,38 @@ class IstructionsController extends Controller
         }
         return back()->with('error', 'Ошибка удаления интсрукции');
     }
+
+
+    public function edit(Instruction $instruction)
+    {
+        return view('admin.instructions.edit', ['instruction' => $instruction]);
+    }
+
+    public function update(UpdateInstructionRequest $request, Instruction $instruction)
+    {
+
+        $data = $request->validated();
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $now = Carbon::now();
+            $fileName = Storage::disk('public')->putFileAs(
+                '/instructions',
+                $file,
+                $now->format('Y-m-d_H-i-s_') . $request->file('file')->getClientOriginalName()
+            );
+
+            $data['file'] = $fileName;
+            $data['is_moderation'] = 0;
+        } else {
+            $data['file'] = $instruction->file;
+        }
+        $instruction->fill($data);
+
+        if ($instruction->update()) {
+            return redirect()->route('admin.instructions.index')->with('success', 'Интсрукция успешно изменена!');
+        }
+
+        return back()->with('error', 'Ошибка изменения Интсрукции');
+    }
+
 }

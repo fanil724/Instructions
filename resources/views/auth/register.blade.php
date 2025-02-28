@@ -69,7 +69,7 @@
                             <div class="row mb-3"> <label for="captcha">Капча</label>
                                 <div>
                                     <img id="captchaImg" src="{{ captcha_src() }}" alt="captcha">
-                                    <button type="button" class="btn btn-success" id="butCapcha">Обновить</button>
+                                    <button type="button" class="btn btn-success butCapcha">Обновить</button>
                                 </div>
                                 <div>
                                     <input id="captcha" type="text" class="form-control @error('captcha') is-invalid

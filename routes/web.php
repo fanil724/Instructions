@@ -33,6 +33,8 @@ Route::name('admin.')
             Route::get('/{instruction}', [AdminIstructionsController::class, 'show'])->name('show');
             Route::get('/addInstruktion/{id}', [AdminIstructionsController::class, 'addInstruktion'])->name('addInstruktion');
             Route::delete('/destroy/{instruction}', [AdminIstructionsController::class, 'destroy'])->name('destroy');
+            Route::get('/{instruction}/edit', [AdminIstructionsController::class, 'edit'])->name('edit');
+            Route::put('/update/{instruction}', [AdminIstructionsController::class, 'update'])->name('update');
         });
         Route::name('users.')->prefix('users')->group(function () {
             Route::get('/', [AdminUserController::class, 'index'])->name('index');

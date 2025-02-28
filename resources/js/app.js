@@ -48,12 +48,14 @@ checkStatus.forEach((elem) => {
     })
 });
 
-let butCaptcha = document.getElementById('butCapcha');
+let butCaptcha = document.querySelectorAll('.butCapcha');
 
-butCaptcha.addEventListener('click',
-    () => {
-        axios.get(`/captchaIMG`)
-            .then(response => {
-                document.getElementById('captchaImg').src = response.data.captcha;
-            });
-    });
+butCaptcha.forEach((elem) => {
+    elem.addEventListener('click',
+        () => {
+            axios.get(`/captchaIMG`)
+                .then(response => {
+                    document.getElementById('captchaImg').src = response.data.captcha;
+                });
+        })
+});

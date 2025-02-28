@@ -10,7 +10,8 @@ use App\Http\Request\StoreComplaintRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use PhpOffice\PhpWord\IOFactory;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class InstruktController extends Controller
 {
@@ -45,19 +46,27 @@ class InstruktController extends Controller
     {
         //валидация данных
         $dateValid = $request->validated();
-
+        $now = Carbon::now();
         try {
             $fileName = null;
             if ($request->hasFile('file')) {
 
                 $file = $request->file('file');
 
-                $fileName = Storage::putFileAs('public/instructions', $file, $request->file('file')->getClientOriginalName());
+                $fileName = Storage::disk('public')->putFileAs(
+                    '/instructions',
+                    $file,
+                    $now->format('Y-m-d_H-i-s_') . $request->file('file')->getClientOriginalName()
+                );
+
+                // $fileName = Storage::putFileAs('public/instructions', $file, $request->file('file')->getClientOriginalName());
                 $dateValid['file'] = $fileName;
-                $dateValid['is_moderation'] = 1;
+                $dateValid['is_moderation'] = 0;
+                $dateValid['user_id'] = Auth::user()->id;
             }
             $instruction = Instruction::create($dateValid);
         } catch (\Exception $e) {
+            Log::error('Ошибка записи файла: ' . $e->getMessage());
             return redirect()->route('instructions.create')->with('error', 'Ошибка добавления инструкции! ' . $e->getMessage());
         }
         return redirect()->route('instructions.show', $instruction)->with('success', 'Инструкция успешно добавлена');
@@ -75,18 +84,18 @@ class InstruktController extends Controller
 
     public function complaint(Instruction $instruction)
     {
-        return view('instructions.complaint', ['instructions_id' => $instruction->id]);
+        return view('instructions.complaint', ['instruction_id' => $instruction->id]);
     }
 
     public function comStore(StoreComplaintRequest $request)
     {
         //валидация данных
         $dateValid = $request->validated();
-        $dateValid['users_id'] = Auth::user()->getAuthIdentifier();
-        //dd($dateValid);
+        $dateValid['user_id'] = Auth::user()->getAuthIdentifier();
+        // dd($dateValid);
         $comInstruction = Complaint::create($dateValid);
         if (!$comInstruction) {
-            $instruction = Instruction::find($dateValid->instructions_id);
+            $instruction = Instruction::find($dateValid->instruction_id);
             return redirect()->route('instructions.complaint', ['instruction' => $instruction])
                 ->with('error', 'Ошибка отпраления жалобы! ');
         }

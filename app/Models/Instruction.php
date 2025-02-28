@@ -14,7 +14,7 @@ class Instruction extends Model
 
     public function complaints()
     {
-        return $this->hasMany(Complaint::class, 'id', 'instructions_id');
+        return $this->hasMany(Complaint::class, 'id', 'instruction_id');
     }
     public function user()
     {

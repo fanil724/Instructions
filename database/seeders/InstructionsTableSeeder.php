@@ -20,7 +20,7 @@ class InstructionsTableSeeder extends Seeder
             \App\Models\Instruction::create([
                 'title' => fake()->realText(10),
                 'description' => fake()->realText(50),
-                'file' => 'public/Instructions/' . $fileNames[mt_rand(0, count($fileNames) - 1)],
+                'file' => 'instructions/' . $fileNames[mt_rand(0, count($fileNames) - 1)],
                 'is_moderation' => mt_rand(0, 1),
                 'user_id' => \App\Models\User::inRandomOrder()->first()->id,
             ]);

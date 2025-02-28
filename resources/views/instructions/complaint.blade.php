@@ -9,10 +9,11 @@
 @section('content')
     <div class="container">
         @include('parts.messages')
+
         <form action="{{ route('instructions.complaint.store') }}" enctype="multipart/form-data" method="POST">
             @csrf
-            <input type="text" hidden readonly class="form-control" id="exampleFormControlInput1" name="instructions_id"
-                value="{{$instructions_id}}">
+            <input type="text" hidden readonly class="form-control" id="exampleFormControlInput1" name="instruction_id"
+                value="{{$instruction_id}}">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Наименование жалобы</label>
                 <input type="text" class="form-control @error('title')  is-invalid @enderror" id="exampleFormControlInput1"

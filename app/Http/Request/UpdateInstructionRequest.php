@@ -2,10 +2,10 @@
 
 namespace App\Http\Request;
 
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreComplaintRequest extends FormRequest
+class UpdateInstructionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class StoreComplaintRequest extends FormRequest
     {
         return [
             'title' => 'required|min:5|max:255',
-            'dexription' => 'required|min:5|max:20000',
-            'instruction_id' => 'required',
+            'description' => 'required|min:5|max:20000',
+            'file' => 'nullable|file|mimes:txt,docx'
         ];
     }
 }
