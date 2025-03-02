@@ -18,30 +18,44 @@
         <div class="row justify-content-center">
             @include('parts.messages')
             @forelse ($instructions as $instruction)
-                <div class="card" class="col-sm" style="width: 18rem;">
+                <div class="card" class="col-sm" style="width: 22rem;">
                     <div class="card-body">
                         <h5 class="card-title">{{ $instruction->title }}</h5>
                         <p class="card-text"> {{$instruction->description}} </p>
-                        <a href="{{ route('admin.instructions.show', $instruction) }}" class="btn btn-primary ">Прочитать
-                        </a>
-                        <a href="{{ route('download', $instruction) }}" class="btn  btn-success ">Скачать </a>
-                        <a href="{{ route('admin.instructions.addInstruktion', $instruction->id) }}"
-                            class="btn btn-warning mt-2">Добавить
-                            инструкцию</a>
-                        <div class="row" style="width: 14rem;">
-                            <div class=" col">
+                        <div class="row" style="width: 20rem;">
+                            <div class="col">
+                                <a href="{{ route('admin.instructions.show', $instruction) }}">
+                                    <img src="{{ asset('storage/icon/read.png') }}" alt="прочитать" title="прочитать"
+                                        width="32">
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="{{ route('download', $instruction) }}">
+                                    <img src="{{ asset('storage/icon/download.png') }}" alt="скачать" title="скачать"
+                                        width="32"></a>
+                            </div>
+                            <div class="col">
                                 <form action="{{ route('admin.instructions.destroy', $instruction) }}" method="POST">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="submit" class="btn btn-danger  mt-2">Удалить</button>
+                                    <button type="submit"
+                                        style="border: medium none;   background-image: none;   background: transparent;">
+                                        <img src=" {{ asset('storage/icon/delete.png') }}" alt="удалить" title="удалить"
+                                            width="32"></button>
                                 </form>
                             </div>
                             <div class="col">
-                                <a href="{{ route('admin.instructions.edit', $instruction) }}"
-                                    class="btn  btn-success  mt-2">Изменить
+                                <a href="{{ route('admin.instructions.edit', $instruction) }}">
+                                    <img src="{{ asset('storage/icon/edit.png') }}" alt="изменить" title="изменить" width="32">
                                 </a>
                             </div>
+                            <dib class="col">
+                                <a href="{{ route('admin.instructions.addInstruktion', $instruction->id) }}"><img
+                                        src="{{ asset('storage/icon/add.png') }}" alt="добавить инструкцию после проверки"
+                                        title="добавить инструкцию после проверки" width="32"></a>
+                            </dib>
                         </div>
+
                     </div>
                 </div>
             @empty

@@ -75,7 +75,7 @@ class InstruktController extends Controller
     public function download(Instruction $instruction)
     {
         if ($instruction) {
-            return Storage::download($instruction->file);
+            return Storage::disk('public')->download($instruction->file);
         }
 
         return redirect()->route('instructions.index', $instruction)->with('error', 'Интсрукция не найдена');

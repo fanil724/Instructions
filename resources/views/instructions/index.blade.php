@@ -34,12 +34,27 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $instruction->title }}</h5>
                         <p class="card-text"> {{$instruction->description}} </p>
-                        <a href="{{ route('instructions.show', $instruction) }}" class="btn btn-primary">Прочитать </a>
-                        <a href="{{ route('download', $instruction) }}" class="btn  btn-success ">Скачать </a>
-                        @if (Auth::user())
-                            <a href="{{ route('instructions.complaint', $instruction) }}" class="btn btn-warning mt-2">Сообщить о
-                                нарушении </a>
-                        @endif
+                        <div class="row justify-content-center" style="width: 15rem;">
+                            <div class="col justify-content-center">
+                                <a href="{{ route('instructions.show', $instruction) }}">
+                                    <img src="{{ asset('storage/icon/read.png') }}" alt="прочитать" title="прочитать"
+                                        width="32">
+                                </a>
+                            </div>
+                            <div class="col justify-content-center">
+                                <a href="{{ route('download', $instruction) }}">
+                                    <img src="{{ asset('storage/icon/download.png') }}" alt="скачать" title="скачать"
+                                        width="32"></a>
+                            </div>
+                            <div class="col justify-content-center">
+                                @if (Auth::user())
+                                    <a href="{{ route('instructions.complaint', $instruction) }}"><img
+                                            src="{{ asset('storage/icon/complaint.png') }}" alt="сообщить о нарушении"
+                                            title="сообщить о нарушении" width="32"></a>
+                                @endif
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             @empty

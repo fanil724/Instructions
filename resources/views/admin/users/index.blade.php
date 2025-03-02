@@ -33,6 +33,7 @@
                 <div class="card" class="col-sm" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">{{ $user->name }}</h5>
+
                         <div class="form-check">
                             <input data-id="{{ $user->id }}" class="form-check-input checkBlock" type="checkbox"
                                 id="flexCheckDefault" name="is_blocked" @checked(old('is_blocked', $user->is_blocked))>
@@ -40,12 +41,18 @@
                                 Заблокированный
                             </label>
                         </div>
-                        <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-success">Изменить</a>
-                        <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-danger  mt-2">Удалить</button>
-                        </form>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col d-flex justify-content-center">
+                                <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-success ">Изменить</a>
+                            </div>
+                            <div class="col  d-flex justify-content-center">
+                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Удалить</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @empty
