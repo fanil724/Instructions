@@ -25,14 +25,14 @@
                         <div class="row" style="width: 20rem;">
                             <div class="col">
                                 <a href="{{ route('admin.instructions.show', $instruction) }}">
-                                    <img src="{{ asset('storage/icon/read.png') }}" alt="прочитать" title="прочитать"
-                                        width="32">
+                                    <img class="hvr-pulse" src="{{ asset('storage/icon/read.png') }}" alt="прочитать"
+                                        title="прочитать" width="32">
                                 </a>
                             </div>
                             <div class="col">
                                 <a href="{{ route('download', $instruction) }}">
-                                    <img src="{{ asset('storage/icon/download.png') }}" alt="скачать" title="скачать"
-                                        width="32"></a>
+                                    <img class=" hvr-pulse" src="{{ asset('storage/icon/download.png') }}" alt="скачать"
+                                        title="скачать" width="32"></a>
                             </div>
                             <div class="col">
                                 <form action="{{ route('admin.instructions.destroy', $instruction) }}" method="POST">
@@ -40,19 +40,21 @@
                                     @csrf
                                     <button type="submit"
                                         style="border: medium none;   background-image: none;   background: transparent;">
-                                        <img src=" {{ asset('storage/icon/delete.png') }}" alt="удалить" title="удалить"
-                                            width="32"></button>
+                                        <img class="hvr-pulse" src=" {{ asset('storage/icon/delete.png') }}" alt="удалить"
+                                            title="удалить" width="32"></button>
                                 </form>
                             </div>
                             <div class="col">
                                 <a href="{{ route('admin.instructions.edit', $instruction) }}">
-                                    <img src="{{ asset('storage/icon/edit.png') }}" alt="изменить" title="изменить" width="32">
+                                    <img class="hvr-pulse" src="{{ asset('storage/icon/edit.png') }}" alt="изменить"
+                                        title="изменить" width="32">
                                 </a>
                             </div>
                             <dib class="col">
                                 <a href="{{ route('admin.instructions.addInstruktion', $instruction->id) }}"><img
-                                        src="{{ asset('storage/icon/add.png') }}" alt="добавить инструкцию после проверки"
-                                        title="добавить инструкцию после проверки" width="32"></a>
+                                        class="hvr-pulse" src="{{ asset('storage/icon/add.png') }}"
+                                        alt="добавить инструкцию после проверки" title="добавить инструкцию после проверки"
+                                        width="32"></a>
                             </dib>
                         </div>
 

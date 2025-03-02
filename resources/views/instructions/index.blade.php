@@ -37,18 +37,18 @@
                         <div class="row justify-content-center" style="width: 15rem;">
                             <div class="col justify-content-center">
                                 <a href="{{ route('instructions.show', $instruction) }}">
-                                    <img src="{{ asset('storage/icon/read.png') }}" alt="прочитать" title="прочитать"
-                                        width="32">
+                                    <img class="hvr-pulse" src="{{ asset('storage/icon/read.png') }}" alt="прочитать"
+                                        title="прочитать" width="32">
                                 </a>
                             </div>
                             <div class="col justify-content-center">
                                 <a href="{{ route('download', $instruction) }}">
-                                    <img src="{{ asset('storage/icon/download.png') }}" alt="скачать" title="скачать"
-                                        width="32"></a>
+                                    <img class="hvr-pulse" src="{{ asset('storage/icon/download.png') }}" alt="скачать"
+                                        title="скачать" width="32"></a>
                             </div>
                             <div class="col justify-content-center">
                                 @if (Auth::user())
-                                    <a href="{{ route('instructions.complaint', $instruction) }}"><img
+                                    <a href="{{ route('instructions.complaint', $instruction) }}"><img class="hvr-pulse"
                                             src="{{ asset('storage/icon/complaint.png') }}" alt="сообщить о нарушении"
                                             title="сообщить о нарушении" width="32"></a>
                                 @endif
