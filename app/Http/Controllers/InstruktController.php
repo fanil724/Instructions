@@ -17,7 +17,10 @@ class InstruktController extends Controller
 {
     public function index()
     {
-        $instrukt = Instruction::where('is_moderation', 'like', 1)->paginate(10);
+        /* $instrukt = Instruction::get();
+         dd($instrukt);*/
+
+        $instrukt = Instruction::where('is_moderation', '=', '1')->paginate(10);
         return view('instructions.index', ['instructions' => $instrukt]);
     }
 
@@ -25,9 +28,9 @@ class InstruktController extends Controller
     {
         $search = $request->get('search');
         // dd($search);
-        $instrukt = Instruction::where('is_moderation', 'like', 1)
-            ->where('title', 'LIKE', '%' . $search . '%')
-            ->orWhere('description', 'LIKE', '%' . $search . '%')
+        $instrukt = Instruction::where('is_moderation', '=', 1)
+            ->where('title', 'like', '%' . $search . '%')
+            ->orWhere('description', 'like', '%' . $search . '%')
             ->paginate(10);
         return view('instructions.index', ['instructions' => $instrukt]);
     }

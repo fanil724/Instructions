@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Complaint extends Model
 {
     use HasFactory;
-
+    protected $table = 'complaints';
+    public $timestamps = true;
     protected $fillable = ['title', 'dexription', 'status', 'user_id', 'instruction_id'];
 
     public function user()

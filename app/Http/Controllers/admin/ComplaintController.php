@@ -11,7 +11,7 @@ class ComplaintController extends Controller
 {
     public function index()
     {
-        $compalint = Complaint::where('status', 'like', 0)->paginate(10);
+        $compalint = Complaint::where('status', '=', 0)->paginate(10);
         return view('admin.complaint.index', ['compalints' => $compalint]);
     }
 

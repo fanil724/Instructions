@@ -14,7 +14,7 @@ class IstructionsController extends Controller
 {
     public function index()
     {
-        $instrukt = Instruction::where('is_moderation', 'like', 0)->paginate(10);
+        $instrukt = Instruction::where('is_moderation', '=', '0')->paginate(10);
         return view('admin.instructions.index', ['instructions' => $instrukt]);
     }
 

@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Instruction extends Model
 {
     use HasFactory;
-
-
+    protected $table = 'instructions';
+    public $timestamps = true;
     protected $fillable = ['title', 'description', 'file', 'is_moderation', 'user_id'];
 
     public function complaints()
